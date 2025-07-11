@@ -7,12 +7,12 @@ jobs:
   test-mcp:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      packages: read  # Required to pull from GHCR
+      id-token: write        # ✅ REQUIRED for OIDC
+      contents: read  # Required to pull from GHCR
     steps:
       - name: Checkout (optional)
         uses: actions/checkout@v3
 
       - name: AI Codegenit
-        uses: madhavi-opsera/aicodegen@11
+        uses: madhavi-opsera/aicodegen@12
           
