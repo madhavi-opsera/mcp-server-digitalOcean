@@ -2,13 +2,13 @@ name: Test Secure Action
 
 on:
   workflow_dispatch:
-
+permissions:
+  id-token: write       
+  contents: read  
 jobs:
   test-mcp:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write        # ✅ REQUIRED for OIDC
-      contents: read  # Required to pull from GHCR
+    
     steps:
       - name: Checkout (optional)
         uses: actions/checkout@v3
