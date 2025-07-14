@@ -1,77 +1,100 @@
-<img alt="MrinDoc logo" src="https://github.com/rapi-doc/RapiDoc/blob/master/logo.png" width="60px" />
+# Kubernetes (K8s)
 
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/569/badge)](https://bestpractices.coreinfrastructure.org/projects/569) [![Go Report Card](https://goreportcard.com/badge/github.com/kubernetes/kubernetes)](https://goreportcard.com/report/github.com/kubernetes/kubernetes) ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/kubernetes/kubernetes?sort=semver)
 
-<p align="center">
-    <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square"/>
-    <img src="https://img.shields.io/github/size/rapi-doc/rapidoc/dist/rapidoc-min.js.svg?colorB=blue&label=minified&style=flat-square">
-    <img src="https://img.shields.io/github/size/rapi-doc/rapidoc/dist/rapidoc-min.js.gz.svg?colorB=blue&label=zip&style=flat-square">
-    <a href="https://www.webcomponents.org/element/rapidoc" alt="published on webcomponents.org">
-        <img src="https://img.shields.io/badge/webcomponents.org-rapidoc-blue.svg?style=social"/>
-    </a>
-</p>        
+<img src="https://github.com/kubernetes/kubernetes/raw/master/logo/logo.png" width="100">
 
-# RapiDoc
-Custom Element for Open-API spec viewing
+----
 
-> Sponsored by [Zuplo](https://zuplo.link/rapidoc-2) - Get a Stripe-like API experience for your customers in minutes - documentation, rate-limiting and API-key auth in minutes. 
+Kubernetes, also known as K8s, is an open source system for managing [containerized applications]
+across multiple hosts. It provides basic mechanisms for the deployment, maintenance,
+and scaling of applications.
 
-## Features
-- Supports Swagger 2.0, OpenAPI 3.x.x 
-- Works with any framework or with no framework
-- Allows making API calls
-- Better Usability, 
-  - all Models and Examples are expanded by default, eliminates the need to click and reveal.
-  - Request fields are pre-populated with sample data
-  - Takes only one click to make an API call
-  - Request and response can be placed side-by-side for easy comparison
-- Branding and Personalization features makes it easy to follow any style guide
-  - Comes with 2 Themes (Dark and Light)
-  - Replace default logo with yours
-  - Typography, allows changing fonts
-  - Allows changing text-color, button-color, header-color and color of other UI elements
-- Plenty of customization options 
-  - Add external contents at the top and bottom of the document,  you may add images, link, text, forms etc
-  - Allows disabling API calling feature
-  - Hide the header, so the user can't load any other OpenAPI Spec
-  - Hide Authentication and provide your own pre-generated api-key 
-  - Embed it inside another HTML document
-  - Use it inside another framework (react, vue, angular, lit-element)
-  - Use JavaScript to change its attributes, and it will react to those changes
-  - Style the element with standard css (change padding, position, border, margin )
-- Lightweight and fast
-- Load local json spec from the disk
-- Supported on Chrome, FireFox and Safari. (Not yet tested on Edge)
+Kubernetes builds upon a decade and a half of experience at Google running
+production workloads at scale using a system called [Borg],
+combined with best-of-breed ideas and practices from the community.
 
+Kubernetes is hosted by the Cloud Native Computing Foundation ([CNCF]).
+If your company wants to help shape the evolution of
+technologies that are container-packaged, dynamically scheduled,
+and microservices-oriented, consider joining the CNCF.
+For details about who's involved and how Kubernetes plays a role,
+read the CNCF [announcement].
 
-## Documentation
-[Check out the usage and demos](https://rapi-doc.github.io/RapiDoc/)
+----
 
-## Examples
-[Examples and Test cases](https://rapi-doc.github.io/RapiDoc/list.html)
+## To start using K8s
 
+See our documentation on [kubernetes.io].
 
-## Build Process
-```bash
-# Clone / Download the project then
-npm install
+Take a free course on [Scalable Microservices with Kubernetes].
 
-# build will generate rapidoc-min.js, this is the only file you will need.
-# use it in the script tag of your html <script type="text/javascript" src="rapidoc-min.js"></script></body>
-npm run build 
+To use Kubernetes code as a library in other applications, see the [list of published components](https://git.k8s.io/kubernetes/staging/README.md).
+Use of the `k8s.io/kubernetes` module or `k8s.io/kubernetes/...` packages as libraries is not supported.
 
-# for development use yarn serve (this will start an webserver at port 8080, then navigate to localhost:8080) 
-npm run serve
+## To start developing K8s
+
+The [community repository] hosts all information about
+building Kubernetes from source, how to contribute code
+and documentation, who to contact about what, etc.
+
+If you want to build Kubernetes right away there are two options:
+
+##### You have a working [Go environment].
+
+```
+git clone https://github.com/kubernetes/kubernetes
+cd kubernetes
+make
 ```
 
-## Roadmap
-- ✅ Upgrade to use `lit 2`
-- Pre Rendering / Server Side Rendering (SSR) of RapiDoc
-- Improve PDF generation of OpenAPI spec Using RapiPDF
-- Create a Command Line interface (CLI) to make it automation friendly
-- Add localization support
-- Follow Web Content Accessibility Guidelines (WCAG 2)
-- Improve Homepage, Documentation and Examples
-- Create groundwork for automated testing
-- Create a live playground (Something like swagger editor)
-- Create a short animation/video to show how RapiDoc/RapiPDF works
+##### You have a working [Docker environment].
 
+```
+git clone https://github.com/kubernetes/kubernetes
+cd kubernetes
+make quick-release
+```
+
+For the full story, head over to the [developer's documentation].
+
+## Support
+
+If you need support, start with the [troubleshooting guide],
+and work your way through the process that we've outlined.
+
+That said, if you have questions, reach out to us
+[one way or another][communication].
+
+[announcement]: https://cncf.io/news/announcement/2015/07/new-cloud-native-computing-foundation-drive-alignment-among-container
+[Borg]: https://research.google.com/pubs/pub43438.html?authuser=1
+[CNCF]: https://www.cncf.io/about
+[communication]: https://git.k8s.io/community/communication
+[community repository]: https://git.k8s.io/community
+[containerized applications]: https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/
+[developer's documentation]: https://git.k8s.io/community/contributors/devel#readme
+[Docker environment]: https://docs.docker.com/engine
+[Go environment]: https://go.dev/doc/install
+[kubernetes.io]: https://kubernetes.io
+[Scalable Microservices with Kubernetes]: https://www.udacity.com/course/scalable-microservices-with-kubernetes--ud615
+[troubleshooting guide]: https://kubernetes.io/docs/tasks/debug/
+
+## Community Meetings 
+
+The [Calendar](https://www.kubernetes.dev/resources/calendar/) has the list of all the meetings in the Kubernetes community in a single location.
+
+## Adopters
+
+The [User Case Studies](https://kubernetes.io/case-studies/) website has real-world use cases of organizations across industries that are deploying/migrating to Kubernetes.
+
+## Governance 
+
+Kubernetes project is governed by a framework of principles, values, policies and processes to help our community and constituents towards our shared goals.
+
+The [Kubernetes Community](https://github.com/kubernetes/community/blob/master/governance.md) is the launching point for learning about how we organize ourselves.
+
+The [Kubernetes Steering community repo](https://github.com/kubernetes/steering) is used by the Kubernetes Steering Committee, which oversees governance of the Kubernetes project.
+
+## Roadmap 
+
+The [Kubernetes Enhancements repo](https://github.com/kubernetes/enhancements) provides information about Kubernetes releases, as well as feature tracking and backlogs.
