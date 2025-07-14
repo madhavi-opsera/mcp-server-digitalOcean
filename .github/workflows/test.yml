@@ -23,7 +23,7 @@ jobs:
     #     ls -la ${{ inputs.input_directory }}
         
     - name: Run codeglide
-      uses: madhavi-opsera/aicodegen@v21
+      uses: madhavi-opsera/aicodegen@v22
       with:
         input_directory: ${{ inputs.input_directory }}
         
