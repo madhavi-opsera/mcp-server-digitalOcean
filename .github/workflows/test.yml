@@ -2,17 +2,29 @@ name: Test Secure Action
 
 on:
   workflow_dispatch:
+    inputs:
+      input_directory:
+        description: 'Directory containing API source code (relative to workspace)'
+        required: true
+        type: string        
 
 jobs:
-  test-mcp:
+  generate:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write       
-      contents: read 
     steps:
-      - name: Checkout (optional)
-        uses: actions/checkout@v3
-
-      - name: AI Codegenit
-        uses: madhavi-opsera/aicodegen@16
-          
+    - uses: actions/checkout@v4
+    
+    - name: Verify input directory
+      run: |
+        if [ ! -d "${{ inputs.input_directory }}" ]; then
+          echo "Input directory not found: ${{ inputs.input_directory }}"
+          exit 1
+        fi
+        echo "Using source code from: ${{ inputs.input_directory }}"
+        ls -la ${{ inputs.input_directory }}
+        
+    - name: Run codeglide
+      uses: madhavi-opsera/aicodegen@v21
+      with:
+        input_directory: ${{ inputs.input_directory }}
+        
