@@ -6,6 +6,7 @@ on:
       input_directory:
         description: 'Directory containing API source code (relative to workspace)'
         required: false
+        default: "."
         type: string        
 
 jobs:
