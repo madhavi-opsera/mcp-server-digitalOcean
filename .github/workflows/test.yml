@@ -5,7 +5,8 @@ on:
     inputs:
       input_directory:
         description: 'Directory containing API source code (relative to workspace)'
-        required: true
+        required: false
+        default: "."
         type: string        
 
 jobs:
@@ -14,17 +15,17 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Verify input directory
-      run: |
-        if [ ! -d "${{ inputs.input_directory }}" ]; then
-          echo "Input directory not found: ${{ inputs.input_directory }}"
-          exit 1
-        fi
-        echo "Using source code from: ${{ inputs.input_directory }}"
-        ls -la ${{ inputs.input_directory }}
+    # - name: Verify input directory
+    #   run: |
+    #     if [ ! -d "${{ inputs.input_directory }}" ]; then
+    #       echo "Input directory not found: ${{ inputs.input_directory }}"
+    #       exit 1
+    #     fi
+    #     echo "Using source code from: ${{ inputs.input_directory }}"
+    #     ls -la ${{ inputs.input_directory }}
         
     - name: Run codeglide
-      uses: madhavi-opsera/aicodegen@v21
+      uses: madhavi-opsera/aicodegen@v23
       with:
         input_directory: ${{ inputs.input_directory }}
-        
+      
