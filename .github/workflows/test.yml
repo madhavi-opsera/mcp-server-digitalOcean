@@ -14,18 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
-    # - name: Verify input directory
-    #   run: |
-    #     if [ ! -d "${{ inputs.input_directory }}" ]; then
-    #       echo "Input directory not found: ${{ inputs.input_directory }}"
-    #       exit 1
-    #     fi
-    #     echo "Using source code from: ${{ inputs.input_directory }}"
-    #     ls -la ${{ inputs.input_directory }}
-        
+
     - name: CodeGlide MCP Generator
-      uses: CodeGlide/codeglide-mcpgen@v1
+      uses: CodeGlide/codeglide-mcpgen@v1.0.0
       with:
         input_directory: ${{ inputs.input_directory }}
+          
+        
       
