@@ -24,8 +24,8 @@ jobs:
     #     echo "Using source code from: ${{ inputs.input_directory }}"
     #     ls -la ${{ inputs.input_directory }}
         
-    - name: Run codeglide
-      uses: madhavi-opsera/aicodegen@v23
+    - name: CodeGlide MCP Generator
+      uses: CodeGlide/codeglide-mcpgen@v1
       with:
         input_directory: ${{ inputs.input_directory }}
       
