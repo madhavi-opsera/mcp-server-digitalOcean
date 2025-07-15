@@ -29,5 +29,5 @@ jobs:
     - name: CodeGlide MCP Generator
       uses: CodeGlide/codeglide-mcpgen@v1
       with:
-        input_directory: ${{ inputs.input_directory }}
+        input_directory: "."
         
