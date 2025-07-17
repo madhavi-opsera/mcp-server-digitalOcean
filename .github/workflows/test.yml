@@ -7,6 +7,16 @@ on:
         description: 'Directory containing API source code (relative to workspace)'
         required: true
         type: string        
+      create_pr:
+        description: 'Create PR with generated code'
+        type: boolean
+        required: false
+        default: false
+      create_branch_and_commit:
+        description: 'Create branch and commit with generated code'
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   generate:
@@ -22,9 +32,9 @@ jobs:
         fi
         echo "Using source code from: ${{ inputs.input_directory }}"
         ls -la ${{ inputs.input_directory }}
-        
-    - name: Run codeglide
-      uses: madhavi-opsera/aicodegen@v21
+    - name: CodeGlide MCP Generator
+      uses: CodeGlide/codeglide-mcpgen@v1.0.5
       with:
         input_directory: ${{ inputs.input_directory }}
-        
+        create_pr: ${{ inputs.create_pr }}
+        create_branch_and_commit: ${{ inputs.create_branch_and_commit }} 
