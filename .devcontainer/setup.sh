@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Setup script for DigitalOcean MCP Server Codespace
+echo "Setting up DigitalOcean MCP Server environment..."
+
+# Update package manager
+sudo apt-get update
+
+# Install additional dependencies
+sudo apt-get install -y curl wget git
+
+# Check if we're in a repository with MCP server
+if [ -d "MCP" ]; then
+    echo "Found MCP directory, setting up MCP server..."
+    
+    # Navigate to MCP directory
+    cd MCP
+    
+    # Check if it's a Node.js MCP server
+    if [ -f "package.json" ]; then
+        echo "Installing Node.js dependencies..."
+        npm install
+        
+        # Build if TypeScript
+        if [ -f "tsconfig.json" ]; then
+            echo "Building TypeScript project..."
+            npm run build
+        fi
+    fi
+    
+    # Check if it's a Python MCP server
+    if [ -f "requirements.txt" ]; then
+        echo "Installing Python dependencies..."
+        pip install -r requirements.txt
+    fi
+    
+    # Check if it's a Go MCP server
+    if [ -f "go.mod" ]; then
+        echo "Installing Go dependencies..."
+        go mod tidy
+        go build -o mcp-server .
+    fi
+    
+    cd ..
+fi
+
+echo "Setup complete! MCP server will start automatically when Codespace opens."
