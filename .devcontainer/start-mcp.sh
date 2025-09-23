@@ -43,18 +43,32 @@ start_python_mcp() {
 
 # Function to start Go MCP server
 start_go_mcp() {
+    # Check for Go MCP server in various locations
     if [ -f "MCP/go.mod" ]; then
-        echo "Starting Go MCP server..."
+        echo "Starting Go MCP server from MCP/..."
         cd MCP
         if [ -f "mcp-server" ]; then
             ./mcp-server &
         elif [ -f "main.go" ]; then
             go run main.go &
         else
-            echo "No valid entry point found for Go MCP server"
+            echo "No valid entry point found for Go MCP server in MCP/"
             return 1
         fi
         cd ..
+        return 0
+    elif [ -f "MCP/McpServer/go/go.mod" ]; then
+        echo "Starting Go MCP server from MCP/McpServer/go/..."
+        cd MCP/McpServer/go
+        if [ -f "mcp-server" ]; then
+            ./mcp-server &
+        elif [ -f "main.go" ]; then
+            go run main.go &
+        else
+            echo "No valid entry point found for Go MCP server in MCP/McpServer/go/"
+            return 1
+        fi
+        cd ../..
         return 0
     fi
     return 1
