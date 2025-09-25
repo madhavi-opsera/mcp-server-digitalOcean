@@ -5,7 +5,24 @@ echo "Starting MCP Server..."
 
 # Function to start Node.js MCP server
 start_node_mcp() {
-    if [ -f "MCP/package.json" ]; then
+    # Check for nested JavaScript MCP server first
+    if [ -f "MCP/McpServer/javascript/package.json" ]; then
+        echo "Starting nested JavaScript MCP server..."
+        cd MCP/McpServer/javascript
+        if [ -f "dist/index.js" ]; then
+            node dist/index.js &
+        elif [ -f "src/index.ts" ]; then
+            npx tsx src/index.ts &
+        elif [ -f "main.js" ]; then
+            node main.js &
+        else
+            echo "No valid entry point found for nested JavaScript MCP server"
+            return 1
+        fi
+        cd ../../..
+        return 0
+    # Check for root-level JavaScript MCP server
+    elif [ -f "MCP/package.json" ]; then
         echo "Starting Node.js MCP server..."
         cd MCP
         if [ -f "dist/index.js" ]; then
@@ -24,7 +41,22 @@ start_node_mcp() {
 
 # Function to start Python MCP server
 start_python_mcp() {
-    if [ -f "MCP/requirements.txt" ]; then
+    # Check for nested Python MCP server first
+    if [ -f "MCP/McpServer/python/requirements.txt" ]; then
+        echo "Starting nested Python MCP server..."
+        cd MCP/McpServer/python
+        if [ -f "main.py" ]; then
+            python main.py &
+        elif [ -f "mcp_server.py" ]; then
+            python mcp_server.py &
+        else
+            echo "No valid entry point found for nested Python MCP server"
+            return 1
+        fi
+        cd ../../..
+        return 0
+    # Check for root-level Python MCP server
+    elif [ -f "MCP/requirements.txt" ]; then
         echo "Starting Python MCP server..."
         cd MCP
         if [ -f "main.py" ]; then
