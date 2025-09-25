@@ -1,92 +1,41 @@
 #!/bin/bash
+set -e
 
-# Universal setup script for MCP Server Codespace
-echo "Setting up Universal MCP Server environment..."
+echo "🔧 Initializing JavaScript MCP Server..."
 
-# Update package manager
-sudo apt-get update
+# Ensure we have Node.js deps
+if [ -d "MCP" ] && [ -f "MCP/package.json" ]; then
+    cd MCP
+    echo "📦 Installing npm dependencies..."
+    npm install
 
-# Install additional dependencies
-sudo apt-get install -y curl wget git build-essential
-
-# Check if we're in a repository with MCP server
-if [ -d "MCP" ]; then
-    echo "Found MCP directory, setting up MCP server..."
-    
-    # Check for nested JavaScript structure first
-    if [ -d "MCP/McpServer/javascript" ]; then
-        echo "Found nested JavaScript MCP server in MCP/McpServer/javascript/"
-        cd MCP/McpServer/javascript
-        
-        if [ -f "package.json" ]; then
-            echo "Installing Node.js dependencies..."
-            npm install
-            
-            # Build if TypeScript
-            if [ -f "tsconfig.json" ]; then
-                echo "Building TypeScript project..."
-                npm run build
-            fi
-            echo "JavaScript MCP server setup complete"
-        fi
-        
-        cd ../../..
-    # Check for nested Go structure
-    elif [ -d "MCP/McpServer/go" ]; then
-        echo "Found nested Go MCP server in MCP/McpServer/go/"
-        cd MCP/McpServer/go
-        
-        if [ -f "go.mod" ]; then
-            echo "Installing Go dependencies..."
-            go mod tidy
-            go build -o mcp-server .
-            echo "Go MCP server built successfully"
-        fi
-        
-        cd ../../..
-    # Check for nested Python structure
-    elif [ -d "MCP/McpServer/python" ]; then
-        echo "Found nested Python MCP server in MCP/McpServer/python/"
-        cd MCP/McpServer/python
-        
-        if [ -f "requirements.txt" ]; then
-            echo "Installing Python dependencies..."
-            pip install -r requirements.txt
-            echo "Python MCP server setup complete"
-        fi
-        
-        cd ../../..
-    else
-        # Navigate to MCP directory
-        cd MCP
-        
-        # Check if it's a Node.js MCP server
-        if [ -f "package.json" ]; then
-            echo "Installing Node.js dependencies..."
-            npm install
-            
-            # Build if TypeScript
-            if [ -f "tsconfig.json" ]; then
-                echo "Building TypeScript project..."
-                npm run build
-            fi
-        fi
-        
-        # Check if it's a Python MCP server
-        if [ -f "requirements.txt" ]; then
-            echo "Installing Python dependencies..."
-            pip install -r requirements.txt
-        fi
-        
-        # Check if it's a Go MCP server
-        if [ -f "go.mod" ]; then
-            echo "Installing Go dependencies..."
-            go mod tidy
-            go build -o mcp-server .
-        fi
-        
-        cd ..
+    if [ -f "tsconfig.json" ]; then
+        echo "🛠️ Building TypeScript project..."
+        npm run build
     fi
+else
+    echo "❌ No MCP/package.json found. Cannot start server."
+    exit 1
 fi
 
-echo "Setup complete! MCP server will start automatically when Codespace opens."
+# Check for AUTH_BEARER env variable
+if [ -z "$AUTH_BEARER" ]; then
+  echo "❌ AUTH_BEARER environment variable is not set!"
+  echo "👉 Add it in GitHub Codespaces: Repository > Settings > Codespaces > Secrets."
+  exit 1
+fi
+
+# Start server
+if [ -f "dist/index.js" ]; then
+    echo "▶️ Running dist/index.js..."
+    AUTH_BEARER="$AUTH_BEARER" node dist/index.js
+elif [ -f "src/index.ts" ]; then
+    echo "▶️ Running src/index.ts..."
+    AUTH_BEARER="$AUTH_BEARER" npx tsx src/index.ts
+elif [ -f "main.js" ]; then
+    echo "▶️ Running main.js..."
+    AUTH_BEARER="$AUTH_BEARER" node main.js
+else
+    echo "❌ No valid entry point found in MCP/"
+    exit 1
+fi
