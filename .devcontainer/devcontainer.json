@@ -13,6 +13,5 @@
       "label": "MCP Server",
       "onAutoForward": "notify"
     }
-  },
-  "remoteUser": "codespace"
+  }
 }

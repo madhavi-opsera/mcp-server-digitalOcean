@@ -3,18 +3,14 @@ set -e
 
 echo "🔧 Initializing JavaScript MCP Server..."
 
-# Ensure we have Node.js deps
-if [ -d "MCP" ] && [ -f "MCP/package.json" ]; then
-    cd MCP
+# Navigate to the JavaScript MCP server directory
+if [ -d "MCP/McpServer/javascript" ]; then
+    cd MCP/McpServer/javascript
     echo "📦 Installing npm dependencies..."
     npm install
-
-    if [ -f "tsconfig.json" ]; then
-        echo "🛠️ Building TypeScript project..."
-        npm run build
-    fi
+    echo "✅ Dependencies installed successfully"
 else
-    echo "❌ No MCP/package.json found. Cannot start server."
+    echo "❌ No MCP/McpServer/javascript directory found. Cannot start server."
     exit 1
 fi
 
@@ -26,16 +22,10 @@ if [ -z "$AUTH_BEARER" ]; then
 fi
 
 # Start server
-if [ -f "dist/index.js" ]; then
-    echo "▶️ Running dist/index.js..."
-    AUTH_BEARER="$AUTH_BEARER" node dist/index.js
-elif [ -f "src/index.ts" ]; then
-    echo "▶️ Running src/index.ts..."
-    AUTH_BEARER="$AUTH_BEARER" npx tsx src/index.ts
-elif [ -f "main.js" ]; then
+if [ -f "main.js" ]; then
     echo "▶️ Running main.js..."
     AUTH_BEARER="$AUTH_BEARER" node main.js
 else
-    echo "❌ No valid entry point found in MCP/"
+    echo "❌ No main.js found in MCP/McpServer/javascript/"
     exit 1
 fi
