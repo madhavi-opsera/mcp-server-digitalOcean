@@ -1,19 +1,19 @@
 #!/bin/bash
 
-# Setup script for DigitalOcean MCP Server Codespace
-echo "Setting up DigitalOcean MCP Server environment..."
+# Universal setup script for MCP Server Codespace
+echo "Setting up Universal MCP Server environment..."
 
 # Update package manager
 sudo apt-get update
 
 # Install additional dependencies
-sudo apt-get install -y curl wget git
+sudo apt-get install -y curl wget git build-essential
 
 # Check if we're in a repository with MCP server
 if [ -d "MCP" ]; then
     echo "Found MCP directory, setting up MCP server..."
     
-    # Check for nested Go structure first
+    # Check for nested Go structure first (like DigitalOcean MCP)
     if [ -d "MCP/McpServer/go" ]; then
         echo "Found nested Go MCP server in MCP/McpServer/go/"
         cd MCP/McpServer/go

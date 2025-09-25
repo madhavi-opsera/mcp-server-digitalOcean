@@ -1,14 +1,25 @@
 {
-  "name": "DigitalOcean MCP Server",
-  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
+  "name": "Universal MCP Server",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers/features/git:1": {}
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/go:1": {
+      "version": "1.21"
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    }
   },
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-vscode.vscode-typescript-next",
+        "golang.go",
+        "ms-python.python",
         "bradlc.vscode-tailwindcss",
         "esbenp.prettier-vscode",
         "ms-vscode.vscode-json"
@@ -36,5 +47,7 @@
       "onAutoForward": "notify"
     }
   },
-  "remoteUser": "node"
+  "remoteUser": "codespace"
 }
+
+

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Start MCP Server script
+# Universal start MCP Server script
 echo "Starting MCP Server..."
 
 # Function to start Node.js MCP server
@@ -68,7 +68,7 @@ start_go_mcp() {
             echo "No valid entry point found for Go MCP server in MCP/McpServer/go/"
             return 1
         fi
-        cd ../..
+        cd ../../..
         return 0
     fi
     return 1
